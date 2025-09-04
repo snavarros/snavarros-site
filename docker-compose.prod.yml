@@ -1,8 +1,6 @@
 services:
   react-frontend:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
     container_name: react-frontend
     expose:
       - "80"
