@@ -15,14 +15,14 @@ COPY . .
 # Build de producción
 RUN npm run build
 
-# Stage 2: Production
+# Stage 2: Nginx Production
 FROM nginx:alpine
 
 # Copiar archivos de build al Nginx
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Copiar configuración custom de Nginx (opcional)
-# COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Copiar configuración custom de Nginx para SPA
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 
