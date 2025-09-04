@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #000000;      /* negro */
+  --color-secondary: #F5F5F0;    /* fondo principal */
+  --color-accent: #A8D1F0;       
+  --color-gray-ticket: #BDBDBD;
+
+  --font-sans: 'Inter', sans-serif;
+}
+
+.text-primary {
+  color: var(--color-primary);
+}
+
+.bg-secondary {
+  background-color: var(--color-secondary);
+}
+
+.text-accent {
+  color: var(--color-accent);
+}
+
+.bg-gray-ticket {
+  background-color: var(--color-gray-ticket);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+

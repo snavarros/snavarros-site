@@ -1,0 +1,19 @@
+services:
+  react-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: react-frontend
+    expose:
+      - "80"
+    environment:
+      - VIRTUAL_HOST=snavarros.cl,www.snavarros.cl
+      - LETSENCRYPT_HOST=snavarros.cl,www.snavarros.cl
+      - LETSENCRYPT_EMAIL=sebastian.navarro.saavedra@gmail.com
+    networks:
+      - webproxy
+    restart: always
+
+networks:
+  webproxy:
+    external: true
