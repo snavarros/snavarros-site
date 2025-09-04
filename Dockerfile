@@ -1,5 +1,5 @@
-# Stage 1: Build
-FROM node:20-alpine AS builder
+# Stage: Build
+FROM node:24-alpine AS builder
 
 WORKDIR /app
 
@@ -12,22 +12,20 @@ RUN npm install
 # Copiar el resto del proyecto
 COPY . .
 
-# Build de producción
+# Generar build de producción
 RUN npm run build
 
-# Stage 2: Production
-FROM nginx:alpine
+# Stage final: contenedor ligero que solo sirve la build
+FROM alpine:latest
+WORKDIR /app
 
-# Copiar archivos de build al Nginx
-COPY --from=builder /app/dist /usr/share/nginx/html
+# Copiar la carpeta de build desde el stage anterior
+COPY --from=builder /app/dist ./dist
 
-# Copiar configuración custom de Nginx para SPA
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Instalar un servidor ligero para servir los archivos estáticos
+RUN apk add --no-cache nodejs npm
+RUN npm install -g serve
 
-# Dar permisos de lectura
-RUN chmod -R 755 /usr/share/nginx/html
+EXPOSE 5000
 
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
-
+CMD ["serve", "-s", "dist", "-l", "5000"]

@@ -1,9 +1,13 @@
+version: "3.9"
+
 services:
   react-frontend:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: react-frontend
     expose:
-      - "80"
+      - "5000"
     environment:
       - VIRTUAL_HOST=snavarros.cl,www.snavarros.cl
       - LETSENCRYPT_HOST=snavarros.cl,www.snavarros.cl
